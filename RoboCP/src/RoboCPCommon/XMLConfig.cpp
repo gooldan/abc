@@ -10,7 +10,6 @@ XMLConfig::XMLConfig ()
   SendPort = "6668";
   CarduinoPort = "\\\\.\\COM3";
   ArducopterPort = "\\\\.\\COM4";
-  FileName= "test.avi";
   CompressionProfile = pcl::octree::LOW_RES_ONLINE_COMPRESSION_WITHOUT_COLOR;
   ShowStatistics = false;
   PointResolution = 0.001;
@@ -19,10 +18,8 @@ XMLConfig::XMLConfig ()
   IFrameRate = 30;
   DoColorEncoding = false;
   ColorBitResolution = 6;
-  CameraNumber = 0;
+  CameraNumber = 1;
   CameraFramesPerSecond = 180;
   CameraFrameWidth = 320;
   CameraFrameHeight = 240;
-  VideoStreamType = 0;
-
 }

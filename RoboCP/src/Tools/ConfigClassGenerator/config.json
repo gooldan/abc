@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 
   "Kinect" : { "Type" : "Kinect",  "Port" : "6666" 
 },
@@ -16,31 +15,4 @@
 
   "Camera" : { "Type" : "Camera", "Number" : 1, "FramesPerSecond" : 180, "FrameWidth" : 32, "FrameHeight" : 240 }
 
-=======
-	
-	"Kinect" : {
-			 "Port" : "6666"
-			 },
-	"Command" :{
-			 "Port" : "6667"
-			 },
-	"Send" : {
-		     "Port" : "6668",
-		     "IsAvailable" : "1"
-	       },
-	"Carduino" : {
-			 "Port" : "COM3"
-			 },
-	"Arducopter" : {
-			     "Port" : "COM4",
-  			     "IsAvailable" : "0",
-			     "DoFakeStart" : "1"
-		     },
-	"Camera" : {
-			"Number" : "1",
-			"FramesPerSecond" : "180",
-			"FrameWidth" : "320",
-			"FrameHeight" : "240"
-		 }
->>>>>>> origin/master
 }

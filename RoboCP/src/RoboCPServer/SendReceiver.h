@@ -28,7 +28,7 @@ public:
   SendReceiver (XMLConfig * x, SendBuffer* b);
   ~SendReceiver (void);
 private:
-  string ip;
-  string port;
+  QString ip;
+  QString port;
   SendBuffer* sendBuffer;
 };

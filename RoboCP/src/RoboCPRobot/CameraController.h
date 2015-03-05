@@ -21,18 +21,10 @@ private:
 	string FileName;
 	CameraReceivedBuffer *buffer;
 public:
-<<<<<<< HEAD
   void Start(void);
   void FakeStart(void);
   CameraReceivedBuffer *GetBuffer(void);
   CameraController(XMLConfig *x, CameraReceivedBuffer *buf);
   ~CameraController(void);
-=======
-	void Start(void);
-	void FakeStart(void);
-	CameraReceivedBuffer *GetBuffer(void);
-	CameraController(XMLConfig *x, CameraReceivedBuffer *buf);
-	~CameraController(void);
->>>>>>> origin/master
 };
 

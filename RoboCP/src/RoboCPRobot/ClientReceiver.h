@@ -16,7 +16,7 @@
 #endif
 
 #include <boost/asio.hpp>
-
+#include <boost/archive/xml_iarchive.hpp>
 
 using boost::asio::ip::tcp;
 

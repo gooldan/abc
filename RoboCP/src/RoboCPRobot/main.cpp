@@ -17,7 +17,7 @@
 #include "SendSender.h"
 #include "configFactory.h"
 #include "XMLConfig.h"
-#include "c:\Users\Svetlana\Documents\GitHub\RoboCP\src\RoboCPRobot\CameraMock.h"
+#include "CameraMock.h"
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
 #include <cv.h>
@@ -132,6 +132,8 @@ int main(char *args[], int count)
 
   CameraReceivedBuffer CameraBuffer(1000);
   CameraController CameraControl(&config, &CameraBuffer);
+  
+  CameraMock CamMockControl(&config, &CameraBuffer);
 
   CommandBuffer ComBuffer(100);
   CommandProcessing ComProc(&config, &ComBuffer);

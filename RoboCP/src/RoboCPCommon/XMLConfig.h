@@ -38,8 +38,7 @@ private:
 	ar & BOOST_SERIALIZATION_NVP(SendPort);
 	ar & BOOST_SERIALIZATION_NVP(CarduinoPort);
 	ar & BOOST_SERIALIZATION_NVP(ArducopterPort);
-	ar & BOOST_SERIALIZATION_NVP(FileName);
-	
+
     ar & BOOST_SERIALIZATION_NVP(CompressionProfile);
     ar & BOOST_SERIALIZATION_NVP(ShowStatistics);
     ar & BOOST_SERIALIZATION_NVP(PointResolution);
@@ -53,7 +52,6 @@ private:
     ar & BOOST_SERIALIZATION_NVP(CameraFramesPerSecond);
     ar & BOOST_SERIALIZATION_NVP(CameraFrameWidth);
     ar & BOOST_SERIALIZATION_NVP(CameraFrameHeight);
-<<<<<<< HEAD
   }*/
   
 
@@ -183,19 +181,6 @@ public:
   QString SendPort;
   QString CarduinoPort;
   QString ArducopterPort;
-=======
-	ar & BOOST_SERIALIZATION_NVP(VideoStreamType);
-  }
-
-public:
-  string IP;
-  string KinectPort;
-  string CommandPort;
-  string SendPort;
-  string CarduinoPort;
-  string ArducopterPort;
-  string FileName;
->>>>>>> origin/master
 
   pcl::octree::compression_Profiles_e CompressionProfile;
 
@@ -211,6 +196,6 @@ public:
   int CameraFramesPerSecond;
   int CameraFrameWidth;
   int CameraFrameHeight;
-  int VideoStreamType;
+
   XMLConfig();
 };

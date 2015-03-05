@@ -1,5 +1,5 @@
 #pragma once
-#define _XOPEN_SOURCE
+#define _XOPEN_SOURCE 1
 #include <time.h>
 #include "Point3d.h"
 #include "DisplacementImages.h"

@@ -10,7 +10,7 @@ NanoController::NanoController(XMLConfig *x, NanoReceivedBuffer *buf)
 {
   buffer = buf;
   lastReadTime = time(NULL);
-  nanoPort = x->CarduinoPort;
+  nanoPort = x->CarduinoPort.toStdString();
   char *cstr = new char[nanoPort.length() + 1];
   strcpy(cstr, nanoPort.c_str());
   nanoCom = new SerialCom(cstr, NANO_BAUD_RATE);

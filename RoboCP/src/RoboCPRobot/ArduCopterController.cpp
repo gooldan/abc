@@ -303,6 +303,24 @@ void ArduCopterController::sendInitionalData(void)
 
 void ArduCopterController::Start(void)
 {
+	if(!config->getIsAvailable())
+  {
+	  if(config->getDoFakeStart())
+    {
+      #ifdef ENABLE_LOGGING
+      RAW_LOG(INFO, "ArduCopterController: not available. Do fake start");
+      #endif
+	  FakeStart();
+	}
+	else
+	{
+	  #ifdef ENABLE_LOGGING
+      RAW_LOG(INFO, "ArduCopterController: not available. Exit");
+      #endif
+	  exit(1);
+	}
+	return;
+  }
   #ifdef ENABLE_LOGGING
   RAW_LOG(INFO, "ArduCopterController: started");
   #endif
@@ -417,8 +435,8 @@ void ArduCopterController::Start(void)
         #ifdef ENABLE_LOGGING
         RAW_LOG(INFO, "ArduCopterController: reconnecting...");
         #endif
-        char *cstr = new char[copterPort.length() + 1];
-        strcpy(cstr, copterPort.c_str());
+		char *cstr = new char[config->getPort().length() + 1];
+        strcpy(cstr, config->getPort().c_str());
         copterCom = new SerialCom(cstr, COPTER_BAUD_RATE);
         sendInitionalData();
         lastReadTime = time(NULL);
