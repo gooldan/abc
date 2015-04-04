@@ -133,7 +133,7 @@ int main(char *args[], int count)
   CameraReceivedBuffer CameraBuffer(1000);
   CameraController CameraControl(&config, &CameraBuffer);
   
-  CameraMock CamMockControl(&config, &CameraBuffer);
+  //CameraMock CamMockControl(&config, &CameraBuffer);
 
   CommandBuffer ComBuffer(100);
   CommandProcessing ComProc(&config, &ComBuffer);
@@ -158,7 +158,7 @@ int main(char *args[], int count)
   
   tgroup.create_thread ( boost::bind (&ArduCopterController::Start, &CopterControl) ); 
   
-  tgroup.create_thread(boost::bind(&CameraMock::Start,&CamMockControl));
+  //tgroup.create_thread(boost::bind(&CameraMock::Start,&CamMockControl));
   
   //tgroup.create_thread ( boost::bind (&CameraController::Start, &CameraControl) );
   

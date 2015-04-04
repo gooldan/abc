@@ -44,7 +44,7 @@ void CameraMock::Start(void)
 	Frame=cvQueryFrame(Capture);
 	}
 	
-	boost::shared_ptr<CameraReceived> CameraImg(new CameraReceived(Frame));
+	QSharedPointer<CameraReceived> CameraImg(new CameraReceived(Frame));
 	
 	if(FrameLast != 0)
 	{

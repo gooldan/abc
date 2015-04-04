@@ -12,9 +12,7 @@ NanoController::NanoController(XMLConfig *x, NanoReceivedBuffer *buf)
   buffer = buf;
   lastReadTime = time(NULL);
   nanoPort = QString(x->CarduinoPort.c_str());
-  char *cstr = new char[nanoPort.length() + 1];
-  strcpy(cstr, nanoPort.toStdString().c_str());
-  nanoCom = new SerialCom(cstr, NANO_BAUD_RATE);
+	nanoCom = new SerialCom(nanoPort, NANO_BAUD_RATE);
   dataToSend = new char(TO_SEND_BUFF_SIZE);
   readyToNewMessage = true;
 }

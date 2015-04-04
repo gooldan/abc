@@ -3,9 +3,9 @@
 
 
 //temporarily constructor isn't empty.
-SerialCom :: SerialCom(char *PortName, int BoudRate)
+SerialCom :: SerialCom(QString PortName, int BoudRate)
 {
-	Write_Settings_Port(QString(PortName),BoudRate, QSerialPort::Data8, QSerialPort::NoParity, QSerialPort::OneStop, QSerialPort::NoFlowControl);
+	Write_Settings_Port(PortName,BoudRate, QSerialPort::Data8, QSerialPort::NoParity, QSerialPort::OneStop, QSerialPort::NoFlowControl);
 
 	ConnectPort();
 }

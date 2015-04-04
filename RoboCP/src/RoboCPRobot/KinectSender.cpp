@@ -3,7 +3,7 @@
 
 KinectSender::KinectSender(XMLConfig * x, KinectBuffer * buf)
 {
-	port = atoi(x->KinectPort.toStdString().c_str() ); //Reading port from config
+	port = atoi(x->KinectPort.c_str() ); //Reading port from config
 
   // We will encode point clouds before sending via octreeCoder
   // Parameters for constructor are taken from config

@@ -1,5 +1,4 @@
 #include "configFactory.h"
-
 configFactory::~configFactory(){
 
 }
@@ -20,7 +19,7 @@ void configFactory::Parse(){
 }
 Config* configFactory::DetermineConfigObject(QJsonObject treeOfObject)
 {
-QString type = treeOfObject.value("Type").toString();
+  QString type = treeOfObject.value("Type").toString();
   if (type == "Kinect"){
     KinectConfig *config= new KinectConfig();
     config->Port = treeOfObject.value("Port").toInt();
@@ -44,7 +43,13 @@ QString type = treeOfObject.value("Type").toString();
   }
   if (type == "Arducopter"){
     ArducopterConfig *config= new ArducopterConfig();
-    config->Port = treeOfObject.value("Port").toString().toStdString();
+		const QByteArray asc = treeOfObject.value("Port").toString().toUtf8(); 
+		for (int i = 0; i < asc.length(); ++i)
+		{
+			cout << asc[i];
+		}
+		string str = string(asc.constData(), asc.length());
+		config->Port = treeOfObject.value("Port").toString().toStdString();
     config->IsAvailable = treeOfObject.value("IsAvailable").toInt();
     config->DoFakeStart = treeOfObject.value("DoFakeStart").toInt();
     return config;

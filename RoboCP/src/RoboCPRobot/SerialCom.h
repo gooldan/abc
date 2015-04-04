@@ -32,7 +32,7 @@ private:
 
 public:
 
-  SerialCom(char *PortName, int BoudRate);
+	SerialCom(QString PortName, int BoudRate);
 
   ~SerialCom();
 
