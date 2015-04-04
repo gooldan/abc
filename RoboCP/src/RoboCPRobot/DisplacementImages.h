@@ -10,10 +10,12 @@
 #include "QtCore\qdatastream.h"
 
 #include "QtXml\qdom.h"
+#include "SenderBase.h"
 
+#include <QObject>
 #define MAX_COUNT 400 
 
-typedef struct Vector
+typedef struct Vector //: public SenderBase
 {
 	/*
 	template <typename Archive>
@@ -26,31 +28,27 @@ typedef struct Vector
 		ar & BOOST_SERIALIZATION_NVP(Length);
 	}*/
 
-	
-	QDomElement serialize(QDomDocument& doc){
-	
-		QDomElement elem = doc.createElement("Vector");
-		elem.setAttribute("BeginingX",BeginningX);
-		elem.setAttribute("EndX",EndX);
-		elem.setAttribute("BeginningY",BeginningY);
-		elem.setAttribute("EndY",EndY);
-		elem.setAttribute("Length",Length);
-
-		return elem;
-	}
-
-	void deserialize(const QDomElement& node){
-	
-		BeginningX=node.attribute("BeginningX").toFloat();
-		EndX=node.attribute("EndX").toFloat();
-		BeginningY=node.attribute("BeginningY").toFloat();
-		EndY=node.attribute("EndY").toFloat();
-		Length=node.attribute("Length").toDouble();
-	}
-
+	//Q_OBJECT
+		//Q_PROPERTY(float BeginningX READ getBeginningX WRITE setBeginningX)
+		/*Q_PROPERTY(float EndX READ getEndX WRITE setEndX)
+		Q_PROPERTY(float BeginningY READ getBeginningY WRITE setBeginningY)
+		Q_PROPERTY(float EndY READ getEndY WRITE setEndY)
+		Q_PROPERTY(double Length READ getLength WRITE setLength)*/
 
 	float BeginningX, EndX, BeginningY, EndY;
 	double Length;
+
+public:
+	float getBeginningX() const {return BeginningX;}
+	void setBeginningX(float newBeginningX) {BeginningX=newBeginningX;}
+	float getEndX() const {return EndX;}
+	void setEndX(float newEndX) {EndX=newEndX;}
+	float getBeginningY() const {return BeginningY;}
+	void setBeginningY(float newBeginningY) {BeginningY=newBeginningY;}
+	float getEndY() const {return EndY;}
+	void setEndY(float newEndY) {EndY=newEndY;}
+	double getLength() const {return Length;}
+	void setLength(double newLength) {Length=newLength;};
 }
 Vector;
 

@@ -5,15 +5,14 @@ CameraReceived::CameraReceived(IplImage *ImageToSave)
 {
         Frame = 0;
 	Frame = cvCloneImage(ImageToSave);
-  
 }
 
 CameraReceived::CameraReceived()
 {
-  Motion.BeginningX = 0;
-  Motion.BeginningY = 0;
-  Motion.EndX = 0;
-  Motion.EndY = 0;
+  Motion.setBeginningX(0);
+  Motion.setBeginningY(0);
+  Motion.setEndX(0);
+  Motion.setEndY(0);
   Frame = 0;
 }
 

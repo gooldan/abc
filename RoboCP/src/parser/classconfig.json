@@ -23,6 +23,11 @@
 			"FramesPerSecond" : "int",
 			"FrameWidth" : "int",
 			"FrameHeight" : "int"
-		 }
+		 },
+    
+    "SendSender": {
+        "Port": "int",
+        "IP": "string" 
+    }
 	
 }

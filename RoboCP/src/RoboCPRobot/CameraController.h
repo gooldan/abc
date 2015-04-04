@@ -8,6 +8,7 @@
 #include "ImageFlowProcessing.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "QtCore\qsharedpointer.h"
 
 class CameraController :
 	public Controller

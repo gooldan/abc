@@ -1,4 +1,5 @@
 #include "ArduCopterController.h"
+#include "QtTest\qtest.h"
 
 
 ArduCopterController::ArduCopterController()
@@ -36,7 +37,9 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[8] = 0x79;
   DataToSend[9] = 0x37;
   copterCom->Write((char *)&DataToSend[0],10);
-  Sleep(10000);
+  
+  QTest::qSleep(10000);
+  
   
   DataToSend[0] = 0xFE;
   DataToSend[1] = 0x09;
@@ -56,7 +59,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[14] = 0xC2;
   DataToSend[15] = 0x3C;
   copterCom->Write((char *)&DataToSend[0],16);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -73,7 +76,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0xC0;
   DataToSend[13] = 0x34;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(100);
+  QTest::qSleep(100);
   
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -90,7 +93,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x51;
   DataToSend[13] = 0x61;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -107,7 +110,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x03;
   DataToSend[13] = 0x3D;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -124,7 +127,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x92;
   DataToSend[13] = 0x68;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -141,7 +144,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0xBB;
   DataToSend[13] = 0x72;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -158,7 +161,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x2A;
   DataToSend[13] = 0x27;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -175,7 +178,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0xBA;
   DataToSend[13] = 0x61;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -192,7 +195,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x2B;
   DataToSend[13] = 0x34;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(100);
+  QTest::qSleep(100);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -209,7 +212,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x71;
   DataToSend[13] = 0x98;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -226,7 +229,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0xE0;
   DataToSend[13] = 0xCD;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -243,7 +246,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x79;
   DataToSend[13] = 0x92;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -260,7 +263,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0xE8;
   DataToSend[13] = 0xC7;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -277,7 +280,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0xE3;
   DataToSend[13] = 0x8C;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
 
   DataToSend[0] = 0xFE; 
   DataToSend[1] = 0x06;
@@ -294,7 +297,7 @@ void ArduCopterController::sendInitionalData(void)
   DataToSend[12] = 0x72;
   DataToSend[13] = 0xD9;
   copterCom->Write((char *)&DataToSend[0],14);
-  Sleep(50);
+  QTest::qSleep(50);
   stage = -6;
   #ifdef ENABLE_LOGGING
   RAW_LOG(INFO, "ArduCopterController: Initional data sent!");
@@ -384,7 +387,7 @@ void ArduCopterController::Start(void)
               #ifdef COPTER_TELEMETRY_TEST
               printf("%f  %f  %f\n",PFloatData[0]*180/3.1416,PFloatData[1]*180/3.1416,PFloatData[2]*180/3.1416);
               #endif
-              boost::shared_ptr<ArduCopterReceived> CopterReceived (new ArduCopterReceived());
+              QSharedPointer <ArduCopterReceived> CopterReceived (new ArduCopterReceived());
               CopterReceived->Roll = PFloatData[0];
               CopterReceived->Pitch = PFloatData[1];
               CopterReceived->Yaw = PFloatData[2];
@@ -400,7 +403,7 @@ void ArduCopterController::Start(void)
               #ifdef COPTER_TELEMETRY_TEST
               printf("%f\n",PFloatData[3]);
               #endif
-              boost::shared_ptr<ArduCopterReceived> CopterReceived (new ArduCopterReceived());
+              QSharedPointer <ArduCopterReceived> CopterReceived (new ArduCopterReceived());
               CopterReceived->AltitudeSonic = PFloatData[3];
               CopterReceived->PacketType = AltitudePacket;
               CopterReceived->Time = time(NULL);
@@ -414,10 +417,10 @@ void ArduCopterController::Start(void)
               #ifdef COPTER_TELEMETRY_TEST
               printf("%d %d %d\n",PShortData[4],PShortData[5],PShortData[6]);
               #endif
-              boost::shared_ptr<ArduCopterReceived> CopterReceived (new ArduCopterReceived());
-              CopterReceived->Acceleration.x = PShortData[4];
-              CopterReceived->Acceleration.y = PShortData[5];
-              CopterReceived->Acceleration.z = PShortData[6];
+              QSharedPointer <ArduCopterReceived> CopterReceived (new ArduCopterReceived());
+              CopterReceived->Acceleration.setx(PShortData[4]);
+              CopterReceived->Acceleration.sety(PShortData[5]);
+              CopterReceived->Acceleration.setz(PShortData[6]);
               CopterReceived->PacketType = AccelerationPacket;
               CopterReceived->Time = time(NULL);
               #ifdef ENABLE_LOGGING
@@ -449,24 +452,24 @@ void ArduCopterController::FakeStart(void)
 {
   int i = 0;
   while (true){
-    boost::shared_ptr<ArduCopterReceived> CopterReceived (new ArduCopterReceived());
+    QSharedPointer <ArduCopterReceived> CopterReceived (new ArduCopterReceived());
     if (i % 3 == 0){
       CopterReceived->Roll = (float)i/180*3.1416;
       CopterReceived->Pitch = (float)(i+1)/180*3.1416;
       CopterReceived->Yaw = (float)(i+2)/180*3.1416;
       CopterReceived->Time = time(NULL);
       buffer->Enqueue(CopterReceived);
-      Sleep(317);
+      QTest::qSleep(317);
       i = (i+1)%360;
       continue;
     }
     if (i % 3 == 1){
-      CopterReceived->Acceleration.x = 100-i;
-      CopterReceived->Acceleration.y = 101-i;
-      CopterReceived->Acceleration.z = 102-i;
+      CopterReceived->Acceleration.setx(100-i);
+      CopterReceived->Acceleration.sety(101-i);
+      CopterReceived->Acceleration.setz(102-i);
       CopterReceived->Time = time(NULL);
       buffer->Enqueue(CopterReceived);
-      Sleep(117);
+      QTest::qSleep(117);
       i = (i+1)%360;
       continue;
     }
@@ -474,7 +477,7 @@ void ArduCopterController::FakeStart(void)
     CopterReceived->AltitudeSonic = i*2 - 1;
     CopterReceived->Time = time(NULL);
     buffer->Enqueue(CopterReceived);
-    Sleep(233);
+    QTest::qSleep(233);
     i = (i+1)%360;
   }
 }

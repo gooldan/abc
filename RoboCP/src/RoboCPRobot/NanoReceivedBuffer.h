@@ -1,11 +1,12 @@
 #pragma once
 #include "ReceivedBuffer.h"
 #include "NanoReceived.h"
+#include "QtCore\qsharedpointer.h"
 
 class NanoReceivedBuffer :
-  public ReceivedBuffer< boost::shared_ptr<NanoReceived> >
+  public ReceivedBuffer< QSharedPointer<NanoReceived> >
 {
 public:
-	NanoReceivedBuffer (int size) : ReceivedBuffer< boost::shared_ptr<NanoReceived> > (size) {}
+	NanoReceivedBuffer (int size) : ReceivedBuffer< QSharedPointer<NanoReceived> > (size) {}
 };
 

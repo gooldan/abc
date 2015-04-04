@@ -1,4 +1,5 @@
 #include "ReceivedBuffer.h"
+#include "QtCore\qsharedpointer.h"
 
 template <class Type>
 ReceivedBuffer<Type>::ReceivedBuffer(int size)
@@ -39,9 +40,9 @@ Type ReceivedBuffer<Type>::Dequeue ()
 }
 
 template class ReceivedBuffer<int>;
-template class ReceivedBuffer< boost::shared_ptr<KinectData> >;
-template class ReceivedBuffer< boost::shared_ptr<NanoReceived> >;
-template class ReceivedBuffer< boost::shared_ptr<ArduCopterReceived> >;
-template class ReceivedBuffer< boost::shared_ptr<CameraReceived> >;
-template class ReceivedBuffer< boost::shared_ptr<Command> >;
-template class ReceivedBuffer< boost::shared_ptr<Send> >;
+template class ReceivedBuffer< QSharedPointer<KinectData> >;
+template class ReceivedBuffer< QSharedPointer<NanoReceived> >;
+template class ReceivedBuffer< QSharedPointer<ArduCopterReceived> >;
+template class ReceivedBuffer< QSharedPointer<CameraReceived> >;
+template class ReceivedBuffer< QSharedPointer<Command> >;
+template class ReceivedBuffer< QSharedPointer<Send> >;

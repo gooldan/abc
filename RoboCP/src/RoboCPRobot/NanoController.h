@@ -28,7 +28,7 @@ private:
   bool readyToNewMessage;
   NanoReceivedBuffer *buffer;
   SerialCom *nanoCom;
-  string nanoPort;
+  QString nanoPort;
   time_t lastReadTime;
 public:
   void FakeStart(void);

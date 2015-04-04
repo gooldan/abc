@@ -1,5 +1,6 @@
 #include "NanoController.h"
-
+#include "QtTest\qtest.h"
+#include "QtCore\qsharedpointer.h"
 
 NanoReceivedBuffer *NanoController::GetBuffer(void)
 {
@@ -10,9 +11,9 @@ NanoController::NanoController(XMLConfig *x, NanoReceivedBuffer *buf)
 {
   buffer = buf;
   lastReadTime = time(NULL);
-  nanoPort = x->CarduinoPort.toStdString();
+  nanoPort = QString(x->CarduinoPort.c_str());
   char *cstr = new char[nanoPort.length() + 1];
-  strcpy(cstr, nanoPort.c_str());
+  strcpy(cstr, nanoPort.toStdString().c_str());
   nanoCom = new SerialCom(cstr, NANO_BAUD_RATE);
   dataToSend = new char(TO_SEND_BUFF_SIZE);
   readyToNewMessage = true;
@@ -57,7 +58,7 @@ void NanoController::Start(void)
   int DataLength;
   unsigned int Counter = 0;
   while (true){
-    Sleep(1);
+    QTest::qSleep(1);
     Counter++;
     if ((readyToNewMessage == false)&&(Counter > 100)){
       DataLength = 0;
@@ -119,7 +120,7 @@ void NanoController::Start(void)
           }else{
             stage = -4;
             PShortData = (unsigned short *)&DataPacket[0];
-            boost::shared_ptr<NanoReceived> NanoData (new NanoReceived());
+            QSharedPointer<NanoReceived> NanoData (new NanoReceived());
             NanoData->FrontSonicSensor = PShortData[0];
             NanoData->RightSonicSensor = PShortData[1];
             NanoData->BackSonicSensor = PShortData[2];
@@ -155,7 +156,7 @@ void NanoController::Start(void)
         RAW_LOG(INFO, "NanoController: reconnecting...");
         #endif
         char *cstr = new char[nanoPort.length() + 1];
-        strcpy(cstr, nanoPort.c_str());
+        strcpy(cstr, nanoPort.toStdString().c_str());
         nanoCom = new SerialCom(cstr, NANO_BAUD_RATE);
         lastReadTime = time(NULL);
         stage = -4;
@@ -167,7 +168,7 @@ void NanoController::Start(void)
 void NanoController::FakeStart(void){
   int i = 0;
   while (true){
-    boost::shared_ptr<NanoReceived> NanoData (new NanoReceived());
+    QSharedPointer<NanoReceived> NanoData (new NanoReceived());
     NanoData->FrontSonicSensor = (i % 5)*10;
     NanoData->RightSonicSensor = ((i+1)% 5)*10;
     NanoData->BackSonicSensor = ((i+2)% 5)*10;
@@ -176,6 +177,6 @@ void NanoController::FakeStart(void){
     NanoData->Time = time(NULL);
     buffer->Enqueue(NanoData);
     i = (i + 1)%5;
-    Sleep(103);
+    QTest::qSleep(103);
   }
 }

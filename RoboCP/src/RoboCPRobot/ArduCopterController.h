@@ -5,6 +5,7 @@
 #include "SerialCom.h"
 #include <string.h>
 #include <time.h>
+#include "QtCore\qsharedpointer.h"
 
 #ifdef ENABLE_LOGGING
 #define GLOG_NO_ABBREVIATED_SEVERITIES
@@ -25,6 +26,7 @@ private:
   ArduCopterBuffer *buffer;
   ArducopterConfig *config;
   SerialCom *copterCom;
+  QString copterPort;
   time_t lastReadTime;
   char stage;
   void sendInitionalData(void);

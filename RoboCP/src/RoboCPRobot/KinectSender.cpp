@@ -34,7 +34,7 @@ void KinectSender::Start()
   #endif
 
 	while (!socketStream.fail() ) {
-	  boost::shared_ptr<KinectData> pdata;
+	  QSharedPointer<KinectData> pdata;
 	  pdata = buffer->Dequeue(); // Read KinectData from buffer
 	  socketStream << pdata->Time; // Send time
 	  socketStream.flush();

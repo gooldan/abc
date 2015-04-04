@@ -37,6 +37,6 @@ public:
 private:
   KinectBuffer* kinectBuffer;
   PointCloudCompression<PointXYZ>* octreeCoder;
-  string ip;
-  string port;
+  QString ip;
+  QString port;
 };

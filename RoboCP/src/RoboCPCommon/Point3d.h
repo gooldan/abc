@@ -5,8 +5,10 @@
 #include <boost/serialization/nvp.hpp>
 */
 #include "QtXml\qdom.h"
+#include "SenderBase.h"
+#include <QObject>
 
-struct Point3d
+struct Point3d// : public SenderBase
 {
 	/*
   template <typename Archive>
@@ -17,24 +19,20 @@ struct Point3d
     ar & BOOST_SERIALIZATION_NVP(z);
   }*/
   
- QDomElement serialize(QDomDocument& doc)
-	{
-    QDomElement elem = doc.createElement("Point3d");
-	elem.setAttribute("x",x);
-	elem.setAttribute("y",y);
-	elem.setAttribute("z",z);
-	
-	return elem;
- }
-
- void deserialize(const QDomElement& node){
- 
-	 x=node.attribute("x").toShort();
-	 y=node.attribute("y").toShort();
-	 z=node.attribute("z").toShort();
-  }
+	//Q_OBJECT
+	//	Q_PROPERTY(short x READ getx WRITE setx)
+	//	Q_PROPERTY (short y READ gety WRITE sety)
+	//	Q_PROPERTY (short z READ getz WRITE setz)
 
   short x;
   short y; 
   short z;
+
+public:
+	short getx() const {return x;}
+	void setx(short newx) {x=newx;}
+	short gety() const {return y;}
+	void sety(short newy) {y=newy;}
+	short getz() const {return z;}
+	void setz(short newz) {z=newz;};
 };

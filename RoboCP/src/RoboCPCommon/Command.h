@@ -6,8 +6,9 @@
 */
 
 #include <time.h>
+#include "SenderBase.h"
 
-#include "QtXml\qdom.h"
+#include <QObject>
 
 enum CommandType{
   MoveForward,
@@ -21,41 +22,29 @@ enum CommandCondition{
   NearObject
 };
 
-class Command {
-private:
-  
-  /*
-  friend class boost::serialization::access;
- 
-  template<class Archive>
-  void serialize(Archive & ar, const unsigned int version) {
-	ar & BOOST_SERIALIZATION_NVP(ComType);
-	ar & BOOST_SERIALIZATION_NVP(ComCondition);
-	ar & BOOST_SERIALIZATION_NVP(Value);
-  }*/
-
-	QDomElement serialize(QDomDocument& doc)
-	{
-    QDomElement elem = doc.createElement("Command");
-    elem.setAttribute("ComType", ComType);
-    elem.setAttribute("ComCondition", ComCondition);
-    elem.setAttribute("Value",Value);
-    
-    return elem;
-  }
-
-	void deserialize(const QDomElement& node)
+class Command// : public SenderBase
 {
-	ComType =  node.attribute("ComType").toInt();
-    ComCondition=  node.attribute("ComCondition").toInt();
-    Value =  node.attribute("Value").toFloat();
-}
-
+ //   Q_OBJECT
 public:
+	//Q_PROPERTY(int ComType READ getComType WRITE setComType)
+	//Q_PROPERTY(int ComCondition READ getComCondition WRITE setComCondition)
+	//Q_PROPERTY (float Value READ getValue WRITE setValue)
+	//Q_PROPERTY (time_t Time READ getTime WRITE setTime)
+
+  Command (CommandType CType, CommandCondition CCondition, float ConditionValue);
+  Command ();
+
+  int getComType() const {return ComType;}
+  void setComType(int newComType) {ComType=newComType;}
+  int getComCondition() const {return ComCondition;}
+  void setComCondition(int newComCondition) {ComCondition=newComCondition;}
+  float getValue() const {return Value;}
+  void setValue(float newValue) {Value=newValue;}
+  time_t getTime() const {return Time;}
+  void setTime(time_t newTime) {Time=newTime;};
+private:
   int ComType;
   int ComCondition;
   float Value;
   time_t Time;
-  Command (CommandType CType, CommandCondition CCondition, float ConditionValue);
-  Command ();
 };

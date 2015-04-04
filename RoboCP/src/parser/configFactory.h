@@ -1,7 +1,6 @@
-//WARNING!!!!!!!! This is a template file. Do not change it without necessity.
 #pragma once
 #include <iostream>
-#include <qjsondocument.h>
+#include <QJsonDocument>
 #include <QFile>
 #include <QString>
 #include <QByteArray>
@@ -14,6 +13,7 @@
 #include "CarduinoConfig.h"
 #include "ArducopterConfig.h"
 #include "CameraConfig.h"
+#include "SendSenderConfig.h"
 
 //Main class of processing config
 class configFactory{

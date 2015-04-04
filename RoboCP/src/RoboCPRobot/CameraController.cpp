@@ -47,8 +47,8 @@ void CameraController::Start(void)
   while (true){
     Frame = cvQueryFrame(Capture);
 	
-	boost::shared_ptr<CameraReceived> CameraImg(new CameraReceived(Frame));
-	
+	QSharedPointer <CameraReceived> CameraImg(new CameraReceived(Frame));
+
 	if(FrameLast != 0)
 	{
 		obj.CountDisplacement(FrameLast, Frame, &Displacement);
@@ -92,7 +92,7 @@ void CameraController::FakeStart(void)
 	Frame=cvQueryFrame(Capture);
 	}
 	
-	boost::shared_ptr<CameraReceived> CameraImg(new CameraReceived(Frame));
+	QSharedPointer<CameraReceived> CameraImg(new CameraReceived(Frame));
 	
 	if(FrameLast != 0)
 	{

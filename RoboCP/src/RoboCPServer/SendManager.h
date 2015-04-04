@@ -38,5 +38,5 @@ public:
 private:
   SendBuffer* sendBuffer;
   KinectViewer* kinectViewer;
-  void updateText (boost::shared_ptr<Send> s);
+  void updateText (QSharedPointer<Send> s);
 };

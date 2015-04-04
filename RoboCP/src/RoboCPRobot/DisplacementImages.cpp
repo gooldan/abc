@@ -14,9 +14,9 @@ double DisplacementImages::Dist(CvPoint2D32f Point1, CvPoint2D32f Point2)
 void DisplacementImages::CountMotion()
 {
 	Vector Min;
-	Min.Length = -1;
+	Min.setLength(-1);
 	for(int i=0; i< NumVectors; i++){
-		if(Min.Length > Vectors[i].Length || Min.Length == -1)
+		if(Min.getLength() > Vectors[i].getLength() || Min.getLength() == -1)
 		{
 			Min = Vectors[i];
 		}

@@ -1,12 +1,11 @@
-//WARNING!!!!!!!! This is a template file. Do not change it without necessity.
 #include "configFactory.h"
 
 configFactory::~configFactory(){
 
 }
 configFactory::configFactory(){
+  }
 
-}
 void configFactory::Parse(){
   QFile json("config.json");
   if (json.open(QIODevice::ReadOnly))
@@ -56,6 +55,12 @@ QString type = treeOfObject.value("Type").toString();
     config->FramesPerSecond = treeOfObject.value("FramesPerSecond").toInt();
     config->FrameWidth = treeOfObject.value("FrameWidth").toInt();
     config->FrameHeight = treeOfObject.value("FrameHeight").toInt();
+    return config;
+  }
+  if (type == "SendSender"){
+    SendSenderConfig *config= new SendSenderConfig();
+    config->Port = treeOfObject.value("Port").toInt();
+    config->IP = treeOfObject.value("IP").toString().toStdString();
     return config;
   }
 

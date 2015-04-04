@@ -1,6 +1,6 @@
 #pragma once
 #include "KinectReceiver.h"
-
+#include "QtTest\qtest.h"
 
 KinectReceiver::KinectReceiver (XMLConfig * x, KinectBuffer* b)
 {
@@ -22,17 +22,17 @@ KinectReceiver::~KinectReceiver ()
 void KinectReceiver::Start ()
 {
   try {
-    tcp::iostream socketStream (ip.c_str(), port.c_str() ); // Trying to connect
+    tcp::iostream socketStream (ip.toStdString().c_str(), port.toStdString().c_str() ); // Trying to connect
 
     if (!socketStream.fail() ) {
       cout << "KinectReceiver: Connected!" << endl; // TODO: write in log
       #ifdef ENABLE_LOGGING
 	    RAW_LOG (INFO,  "KinectReceiver: Connected!");
       #endif
-	    Sleep (5000);
+	    QTest::qSleep (5000);
 
 	    while (true ) {
-		    boost::shared_ptr<KinectData> kData (new KinectData); // Creating new KinectData
+		    QSharedPointer<KinectData> kData (new KinectData); // Creating new KinectData
 		    socketStream >> kData->Time; // Receivig time
 		    octreeCoder->decodePointCloud (socketStream, kData->Cloud); // Then receiving point cloud
 		    kinectBuffer->Enqueue (kData); // adding KinectData in KinectBuffer

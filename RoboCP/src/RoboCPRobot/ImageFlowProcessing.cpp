@@ -50,11 +50,11 @@ void ImageFlowProcessing::CountDisplacement(IplImage *Img1, IplImage *Img2, Disp
 	{
 		if (features_found[i] == 0) 
 			continue;
-		Displacement->Vectors[numVectors].BeginningX = cornersA[i].x;
-		Displacement->Vectors[numVectors].BeginningY = cornersA[i].y;
-		Displacement->Vectors[numVectors].EndX = cornersB[i].x;
-		Displacement->Vectors[numVectors].EndY = cornersB[i].y;
-		Displacement->Vectors[numVectors].Length = Displacement->Dist(cornersA[i], cornersB[i]);
+		Displacement->Vectors[numVectors].setBeginningX(cornersA[i].x);
+		Displacement->Vectors[numVectors].setBeginningY(cornersA[i].y);
+		Displacement->Vectors[numVectors].setEndX(cornersB[i].x);
+		Displacement->Vectors[numVectors].setEndY(cornersB[i].y);
+		Displacement->Vectors[numVectors].setLength(Displacement->Dist(cornersA[i], cornersB[i]));
 		numVectors++;
 	}
 	Displacement->NumVectors = numVectors;

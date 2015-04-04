@@ -14,7 +14,7 @@ KinectManager::~KinectManager ()
 
 void KinectManager::Start ()
 {
-  boost::shared_ptr<KinectData> kData;
+  QSharedPointer<KinectData> kData;
 
   while (true ) {
 	kData = kinectBuffer->Dequeue ();

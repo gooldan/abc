@@ -14,7 +14,7 @@ SendManager::~SendManager ()
 
 void SendManager::Start ()
 {
-	  boost::shared_ptr<Send> sendData;
+	  QSharedPointer<Send> sendData;
 
 	  while ( true ) {
 		sendData = sendBuffer->Dequeue(); // Receiving
@@ -24,17 +24,17 @@ void SendManager::Start ()
 	  }
 }
 
-void SendManager::updateText (boost::shared_ptr<Send> s)
+void SendManager::updateText (QSharedPointer<Send> s)
 {
   char buf[400];
 
   // Filling buf with sprintf, then updating text in KinectViewer 
   if (s->PacketType == AccelerationPacket){
-    sprintf (buf, "Acceleration x: %d", s->Acceleration.x);
+    sprintf (buf, "Acceleration x: %d", s->Acceleration.getx());
     kinectViewer->viewer->updateText (buf, 5, 290, 10, 1, 1, 1, "AccelerationX");
-    sprintf (buf, "Acceleration y: %d", s->Acceleration.y);
+    sprintf (buf, "Acceleration y: %d", s->Acceleration.gety());
     kinectViewer->viewer->updateText (buf, 5, 278, 10, 1, 1, 1, "AccelerationY");
-    sprintf (buf, "Acceleration z: %d", s->Acceleration.z);
+    sprintf (buf, "Acceleration z: %d", s->Acceleration.getz());
     kinectViewer->viewer->updateText (buf, 5, 268, 10, 1, 1, 1, "AccelerationZ");
   }
   sprintf (buf, "Top sonic: %d", s->TopSonicSensor);
@@ -67,13 +67,13 @@ void SendManager::updateText (boost::shared_ptr<Send> s)
   sprintf (buf, "Time: %s", ctime(&(s->Time)) );
   kinectViewer->viewer->updateText (buf, 5, 122, 10, 1, 1, 1, "SendTime");
 
-  sprintf (buf, "Motion x1: %f", s->Motion.BeginningX);
+  sprintf (buf, "Motion x1: %f", s->Motion.getBeginningX());
   kinectViewer->viewer->updateText (buf, 5, 112, 10, 1, 1, 1, "BeginningX");
-  sprintf (buf, "Motion y1: %f", s->Motion.BeginningY);
+  sprintf (buf, "Motion y1: %f", s->Motion.getBeginningY());
   kinectViewer->viewer->updateText (buf, 5, 102, 10, 1, 1, 1, "BeginningY");
-  sprintf (buf, "Motion x2: %f", s->Motion.EndX);
+  sprintf (buf, "Motion x2: %f", s->Motion.getEndX());
   kinectViewer->viewer->updateText (buf, 5, 92, 10, 1, 1, 1, "EndX");
-  sprintf (buf, "Motion y2: %f", s->Motion.EndY);
+  sprintf (buf, "Motion y2: %f", s->Motion.getEndY());
   kinectViewer->viewer->updateText (buf, 5, 82, 10, 1, 1, 1, "EndY");
     
 }

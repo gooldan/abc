@@ -1,6 +1,6 @@
 #pragma once
 #include "KinectViewer.h"
-
+#include "QtTest\qtest.h"
 
 KinectViewer::KinectViewer (XMLConfig * x)
 {
@@ -18,13 +18,13 @@ void KinectViewer::Start ()
   Mtx->lock();
   viewer = new pcl::visualization::PCLVisualizer ("Downsampled point cloud");
 
-  boost::shared_ptr<KinectData> kData (new KinectData);
+  QSharedPointer<KinectData> kData (new KinectData);
   kData->Time = time (NULL);
   viewer->addPointCloud (kData->Cloud, "cloud"); // Adding point cloud to viewer
   char buf[50]; 
   sprintf (buf, "Cloud time: %s", ctime(&kData->Time) );
   viewer->addText (buf, 5, 20, 10, 1, 1, 1, "CloudTime"); // Adding text line to viewer
-  kData.reset();
+  kData.clear();
 
   
   // Adding multiple text lines to viewer (Send data)
@@ -59,7 +59,7 @@ void KinectViewer::Start ()
 	Mtx->lock();
 	viewer->spinOnce();
 	Mtx->unlock();
-	Sleep (50);
+	QTest::qSleep (50);
   }
 
 }

@@ -7,6 +7,7 @@
 #include <pcl/point_types.h>
 #include <pcl/io/openni_grabber.h>
 #include <pcl/io/pcd_io.h>
+#include "QtCore\qsharedpointer.h"
 
 #ifdef ENABLE_LOGGING
 #define GLOG_NO_ABBREVIATED_SEVERITIES

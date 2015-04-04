@@ -1,4 +1,5 @@
 #include "KinectDownsampler.h"
+#include "QtCore\qsharedpointer.h"
 
 KinectDownsampler::KinectDownsampler (KinectBuffer * inputBuf, KinectBuffer * outputBuf)
 {
@@ -9,11 +10,11 @@ KinectDownsampler::KinectDownsampler (KinectBuffer * inputBuf, KinectBuffer * ou
 void KinectDownsampler::Start(void)
 {
   while (true) {
-    boost::shared_ptr<KinectData> inputData;
+    QSharedPointer<KinectData> inputData;
     inputData = inputBuffer->Dequeue(); // Reading from input buffer
 
 	if (!inputData->Cloud->empty() ) {
-      boost::shared_ptr<KinectData> outputData (new KinectData); // Creating new KinectData
+      QSharedPointer<KinectData> outputData (new KinectData); // Creating new KinectData
 
       outputData->Time = inputData->Time;
       downsample (inputData->Cloud, outputData->Cloud); // downsampling

@@ -7,6 +7,7 @@
 #include "QtCore\qsharedpointer.h"
 #include "QtNetwork\qtcpserver.h"
 #include "QtNetwork\qtcpsocket.h"
+#include "SendSenderConfig.h"
 
 #ifdef ENABLE_LOGGING
 #define GLOG_NO_ABBREVIATED_SEVERITIES

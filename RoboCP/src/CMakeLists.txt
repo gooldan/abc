@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.8 FATAL_ERROR)
 
 project(RoboCP)
 
@@ -20,10 +20,14 @@ INCLUDE_DIRECTORIES(RoboCPRobot)
 INCLUDE_DIRECTORIES(RoboCPServer)
 INCLUDE_DIRECTORIES(RoboCPCommon)
 
-find_package(Qt5Core)
+#QT5
 
-find_package(Qt5SerialPort)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Network REQUIRED)
+find_package(Qt5SerialPort REQUIRED)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 project(Robot)
 
 file(GLOB Robot_Autogen_SOURCE_LIST parser/*.h parser/*.cpp)
@@ -84,15 +88,17 @@ add_executable (Robot ${Robot_Autogen_SOURCE_LIST}
 	
 	RoboCPRobot/main.cpp
 
+	
+
 )
-target_link_libraries (Robot ${PCL_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
 
 
-target_link_libraries (Robot ${PCL_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${Qt5Core_LIBRARIES} ${Qt5SerialPort_LIBRARIES})
+
+target_link_libraries (Robot ${PCL_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} )
 
 project(Server)
 
-add_executable (Server
+add_executable (Server  ${Robot_Autogen_SOURCE_LIST}
 	RoboCPCommon/Controller.h RoboCPCommon/Controller.cpp
 	RoboCPCommon/SenderBase.h RoboCPCommon/SenderBase.cpp
 	RoboCPCommon/ReceivedBuffer.h RoboCPCommon/ReceivedBuffer.cpp
@@ -104,7 +110,7 @@ add_executable (Server
 	RoboCPCommon/KinectData.h RoboCPCommon/KinectData.cpp
 	RoboCPCommon/KinectBuffer.h 
 
-	RoboCPCommon/JSONConfig.h RoboCPCommon/JSONConfig.cpp
+	
 
 	RoboCPCommon/Point3d.h
 
@@ -120,13 +126,16 @@ add_executable (Server
 	RoboCPServer/CommandMaker.h RoboCPServer/CommandMaker.cpp
 
 	RoboCPServer/main.cpp
-
 )
+
 target_link_libraries (Server ${PCL_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
 
 
-
-project(RoboCP)
+qt5_use_modules(Server Core)
+qt5_use_modules(Server Network)
+qt5_use_modules(Robot Core)
+qt5_use_modules(Robot Network)
+qt5_use_modules(Robot SerialPort)
 
 
 

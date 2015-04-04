@@ -1,4 +1,5 @@
 #include "KinectController.h"
+#include "QtTest\qtest.h"
 
 KinectController::KinectController(KinectBuffer * buf)
 {
@@ -8,7 +9,7 @@ KinectController::KinectController(KinectBuffer * buf)
 void KinectController::grabberCallBack (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr &cloud)
 {
   PointCloud<PointXYZ>::Ptr cld (new PointCloud<PointXYZ> (*cloud) );
-  boost::shared_ptr<KinectData> kData (new KinectData (cld, time(NULL) ) ); // Creating KinectData
+  QSharedPointer <KinectData> kData (new KinectData (cld, time(NULL) ) ); // Creating KinectData
   buffer->Enqueue (kData); // Adding it to buffer
 }
 
@@ -44,12 +45,12 @@ void KinectController::FakeStart ()
   RAW_LOG (INFO, "KinectController: ready");
   #endif
   while (true) { // Making new KinectData every 2 seconds
-	Sleep (100);
-	boost::shared_ptr<KinectData> kData1 (new KinectData (cloud1, time(NULL) ) );
+	QTest::qSleep (100);
+	QSharedPointer <KinectData> kData1 (new KinectData (cloud1, time(NULL) ) );
 	buffer->Enqueue (kData1);
 
-	Sleep (100);
-	boost::shared_ptr<KinectData> kData2 (new KinectData (cloud2, time(NULL) ) );
+	QTest::qSleep (100);
+	QSharedPointer <KinectData> kData2 (new KinectData (cloud2, time(NULL) ) );
 	buffer->Enqueue (kData2);
   }
 }

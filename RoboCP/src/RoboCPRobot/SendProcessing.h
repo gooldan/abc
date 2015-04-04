@@ -5,6 +5,7 @@
 #include "CameraReceivedBuffer.h"
 #include "SendBuffer.h"
 #include "NanoReceived.h"
+#include "QtCore\qsharedpointer.h"
 
 class SendProcessing
 {

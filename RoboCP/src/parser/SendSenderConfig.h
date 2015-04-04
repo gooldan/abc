@@ -1,15 +1,15 @@
 #pragma once
 #include "Config.h"
 #include "configFactory.h"
-class SendConfig : public Config{
+class SendSenderConfig : public Config{
 public:
-  SendConfig();
+  SendSenderConfig();
   friend class configFactory;
-  ~SendConfig();
+  ~SendSenderConfig();
   int getPort();
-  bool getIsAvailable();
+  string getIP();
 
 private:
   int Port;
-  bool IsAvailable;
+  string IP;
 };
