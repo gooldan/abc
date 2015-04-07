@@ -153,9 +153,7 @@ void NanoController::Start(void)
         #ifdef ENABLE_LOGGING
         RAW_LOG(INFO, "NanoController: reconnecting...");
         #endif
-        char *cstr = new char[nanoPort.length() + 1];
-        strcpy(cstr, nanoPort.toStdString().c_str());
-        nanoCom = new SerialCom(cstr, NANO_BAUD_RATE);
+        nanoCom = new SerialCom(nanoPort, NANO_BAUD_RATE);
         lastReadTime = time(NULL);
         stage = -4;
       }

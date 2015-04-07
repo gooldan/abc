@@ -38,18 +38,12 @@ Config* configFactory::DetermineConfigObject(QJsonObject treeOfObject)
   }
   if (type == "Carduino"){
     CarduinoConfig *config= new CarduinoConfig();
-    config->Port = treeOfObject.value("Port").toString().toStdString();
+		config->Port = string(treeOfObject.value("Port").toString().toUtf8().constData());
     return config;
   }
   if (type == "Arducopter"){
     ArducopterConfig *config= new ArducopterConfig();
-		const QByteArray asc = treeOfObject.value("Port").toString().toUtf8(); 
-		for (int i = 0; i < asc.length(); ++i)
-		{
-			cout << asc[i];
-		}
-		string str = string(asc.constData(), asc.length());
-		config->Port = treeOfObject.value("Port").toString().toStdString();
+		config->Port = string(treeOfObject.value("Port").toString().toUtf8().constData());
     config->IsAvailable = treeOfObject.value("IsAvailable").toInt();
     config->DoFakeStart = treeOfObject.value("DoFakeStart").toInt();
     return config;
@@ -65,7 +59,7 @@ Config* configFactory::DetermineConfigObject(QJsonObject treeOfObject)
   if (type == "SendSender"){
     SendSenderConfig *config= new SendSenderConfig();
     config->Port = treeOfObject.value("Port").toInt();
-    config->IP = treeOfObject.value("IP").toString().toStdString();
+		config->IP = string(treeOfObject.value("IP").toString().toUtf8().constData());
     return config;
   }
 
