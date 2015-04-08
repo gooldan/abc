@@ -1,6 +1,8 @@
 #pragma once
 #include "controller.h"
+#include "Command.h"
 #include "ArduCopterBuffer.h"
+#include "CommandBuffer.h"
 #include "configFactory.h"
 #include "SerialCom.h"
 #include <string.h>
@@ -24,15 +26,20 @@ class ArduCopterController :
 {
 private:
   ArduCopterBuffer *buffer;
+	CommandBuffer *combuffer;
   ArducopterConfig *config;
   SerialCom *copterCom;
   QString copterPort;
   time_t lastReadTime;
-  char stage;
+	bool doWork;
+	char stage;
   void sendInitionalData(void);
+	char* ConvertCommandToMavlink(Command comm);
 public:
   void Start(void);
-  void Configure(Config *x, ArduCopterBuffer *buf);
+	void NormalStart(void);
+	void Work(void);
+	void Configure(Config *x, ArduCopterBuffer *buf, CommandBuffer *combuf);
   void FakeStart(void);
   ArduCopterController();
   ~ArduCopterController(void);

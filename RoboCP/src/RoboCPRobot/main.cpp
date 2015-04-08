@@ -125,18 +125,18 @@ int main(char *args[], int count)
 
   NanoReceivedBuffer NanoBuffer(1000);
   NanoController  NanoControl(&config, &NanoBuffer);
-
+	CommandBuffer ComBuffer(100);
+	CommandProcessing ComProc(&config, &ComBuffer);
   ArduCopterBuffer CopterBuffer(1000);
+	
   ArduCopterController CopterControl = ArduCopterController();
-  CopterControl.Configure(config1.ConfigByName("Arducopter"), &CopterBuffer);
+  CopterControl.Configure(config1.ConfigByName("Arducopter"), &CopterBuffer,&ComBuffer);
 
   CameraReceivedBuffer CameraBuffer(1000);
   CameraController CameraControl(&config, &CameraBuffer);
   
   //CameraMock CamMockControl(&config, &CameraBuffer);
 
-  CommandBuffer ComBuffer(100);
-  CommandProcessing ComProc(&config, &ComBuffer);
 
   SendBuffer sendBuffer (50);
   SendSender sendSender (&config, &sendBuffer);

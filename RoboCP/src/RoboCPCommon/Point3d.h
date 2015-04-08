@@ -8,7 +8,7 @@
 #include "SenderBase.h"
 #include <QObject>
 
-struct Point3d// : public SenderBase
+class Point3d //: public SenderBase
 {
 	/*
   template <typename Archive>
@@ -20,7 +20,7 @@ struct Point3d// : public SenderBase
   }*/
   
 	//Q_OBJECT
-	//	Q_PROPERTY(short x READ getx WRITE setx)
+//Q_PROPERTY(short x READ getx WRITE setx)
 	//	Q_PROPERTY (short y READ gety WRITE sety)
 	//	Q_PROPERTY (short z READ getz WRITE setz)
 

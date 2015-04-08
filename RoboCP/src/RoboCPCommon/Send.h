@@ -28,7 +28,7 @@ class Send : public SenderBase
 	Q_PROPERTY(float Yaw READ getYaw WRITE setYaw)
 	Q_PROPERTY(float AltitudeSonic READ getAltitudeSonic WRITE setAltitudeSonic)
 	Q_PROPERTY(float AltitudeBarometer READ getAltitudeBarometer WRITE setAltitudeBarometer)
-	Q_PROPERTY(Point3d Acceleration READ getAcceleration WRITE setAcceleration)
+	//Q_PROPERTY(Point3d Acceleration READ getAcceleration WRITE setAcceleration)
 	Q_PROPERTY(int PacketType READ getPacketType WRITE setPacketType)
 	Q_PROPERTY(time_t Time READ getTime WRITE setTime)
 	Q_PROPERTY(Vector Motion READ getMotion WRITE setMotion)

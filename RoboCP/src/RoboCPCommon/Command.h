@@ -11,15 +11,15 @@
 #include <QObject>
 
 enum CommandType{
-  MoveForward,
-  Rotate,
-  Stay
+	MoveForward,
+	Rotate,
+	Stay
 };
 
 enum CommandCondition{
-  PassedTime,
-  PassedDistance,
-  NearObject
+	PassedTime,
+	PassedDistance,
+	NearObject
 };
 
 class Command// : public SenderBase
@@ -30,7 +30,7 @@ public:
 	//Q_PROPERTY(int ComCondition READ getComCondition WRITE setComCondition)
 	//Q_PROPERTY (float Value READ getValue WRITE setValue)
 	//Q_PROPERTY (time_t Time READ getTime WRITE setTime)
-
+	
   Command (CommandType CType, CommandCondition CCondition, float ConditionValue);
   Command ();
 
