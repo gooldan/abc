@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "QtCore\qsharedpointer.h"
-
+//#include "mavlinkSender.cpp"
 
 using namespace cv;
 
@@ -103,8 +103,7 @@ int main(char *args[], int count)
   {
       config1.Parse();
   }
-
-
+	
   XMLConfig config;
   { // Loading config from "config.xml" 
     std::ifstream ifs("config.xml");

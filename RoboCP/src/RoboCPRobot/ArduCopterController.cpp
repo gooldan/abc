@@ -1,12 +1,12 @@
 #include "ArduCopterController.h"
 #include "QtTest\qtest.h"
-
+#include "mavlinkHelper.h"
 
 ArduCopterController::ArduCopterController()
 {
 }
 
-void ArduCopterController::Configure(Config *x, ArduCopterBuffer *buf,CommandBuffer *combuf)
+void ArduCopterController::Configure(Config *x, ArduCopterBuffer *buf, CommandBuffer *combuf)
 {
 	buffer = buf;
 	combuffer = combuf;
@@ -24,6 +24,9 @@ ArduCopterController::~ArduCopterController(void)
 void ArduCopterController::sendInitionalData(void)
 {
 	doWork = true;
+	currentControlState = new unsigned char[26];
+	packetcount = 0;
+	currentControlState = f;
 #ifdef ENABLE_LOGGING
 	RAW_LOG(INFO, "ArduCopterController: sending initional data...");
 #endif
@@ -317,6 +320,7 @@ void ArduCopterController::NormalStart(void)
 
 
 	sendInitionalData();
+	Work();
 }
 void ArduCopterController::Work(void)
 {
@@ -328,33 +332,43 @@ void ArduCopterController::Work(void)
 	int NextByte;
 	unsigned char DataToRead;
 	unsigned char MsgType;
-	while (doWork){
+	while (doWork)
+	{
 		ReadenData = copterCom->Read();
-		if (copterCom->GetOutSize() > 0){
-			for (int i = 0; i < copterCom->GetOutSize(); i++){
-				if (stage == -6){//packet start sign
-					if ((unsigned char)ReadenData[i] == 0xFE){
+		if (copterCom->GetOutSize() > 0)
+		{
+			for (int i = 0; i < copterCom->GetOutSize(); i++)
+			{
+				if (stage == -6)
+				{//packet start sign
+					if ((unsigned char)ReadenData[i] == 0xFE)
+					{
 						stage++;
 					}
 					continue;
 				}
-				if (stage == -5){//payload length
+				if (stage == -5)
+				{//payload length
 					DataToRead = 2 + ((unsigned char)ReadenData[i]);
 					stage++;
 					continue;
 				}
-				if (stage < -1){
+				if (stage < -1)
+				{
 					stage++;
 					continue;
 				}
-				if (stage == -1){//message type
+				if (stage == -1)
+				{//message type
 					MsgType = (unsigned char)ReadenData[i];
 					NextByte = 0;
 					stage++;
 					continue;
 				}
-				if (stage == 0){
-					if (DataToRead > 0){
+				if (stage == 0)
+				{
+					if (DataToRead > 0)
+					{
 						DataToRead--;
 						MavPacket[NextByte] = (unsigned char)ReadenData[i];
 						NextByte++;
@@ -365,12 +379,13 @@ void ArduCopterController::Work(void)
 						if (used[MsgType] == true){
 							used[MsgType] = false;
 							printf("%d\n", MsgType);
-					}
+						}
 #endif
 #ifdef ENABLE_LOGGING
 						RAW_LOG(INFO, "ArduCopterController: got message, mavlink id=%d", MsgType);
 #endif
-						if (MsgType == 30){
+						if (MsgType == 30)
+						{
 							PFloatData = ((float *)(&MavPacket[4]));//[0] - roll, [1] - pitch, [2] - yaw, all in radians
 #ifdef COPTER_TELEMETRY_TEST
 							printf("%f  %f  %f\n", PFloatData[0] * 180 / 3.1416, PFloatData[1] * 180 / 3.1416, PFloatData[2] * 180 / 3.1416);
@@ -386,7 +401,8 @@ void ArduCopterController::Work(void)
 #endif
 							buffer->Enqueue(CopterReceived);
 						}
-						if (MsgType == 74){
+						if (MsgType == 74)
+						{
 							PFloatData = ((float *)(&MavPacket[0]));//[3] - altitude
 #ifdef COPTER_TELEMETRY_TEST
 							printf("%f\n", PFloatData[3]);
@@ -400,7 +416,8 @@ void ArduCopterController::Work(void)
 #endif
 							buffer->Enqueue(CopterReceived);
 						}
-						if (MsgType == 27){
+						if (MsgType == 27)
+						{
 							PShortData = ((short *)(&MavPacket[0]));//[4] - x accel, [5] - y accel, [6] - z accel
 #ifdef COPTER_TELEMETRY_TEST
 							printf("%d %d %d\n", PShortData[4], PShortData[5], PShortData[6]);
@@ -416,13 +433,15 @@ void ArduCopterController::Work(void)
 #endif
 							buffer->Enqueue(CopterReceived);
 						}
+					}
 				}
 			}
-		}
 			lastReadTime = time(NULL);
-	}
-		else{
-			if (difftime(time(NULL), lastReadTime) > COPTER_SECONDS_TO_RECONNECT){
+		}
+		else
+		{
+			if (difftime(time(NULL), lastReadTime) > COPTER_SECONDS_TO_RECONNECT)
+			{
 				copterCom->~SerialCom();
 #ifdef ENABLE_LOGGING
 				RAW_LOG(INFO, "ArduCopterController: reconnecting...");
@@ -435,34 +454,65 @@ void ArduCopterController::Work(void)
 			}
 		}
 		//do commands
+		packetcount++;
+		if (packetcount % 16 == 0)
+		{
+			char heartbeat[] = { 254, 9, 0, 255, 190, 0, 0, 0, 0, 0, 6, 8, 0, 0, 3, 0, 0 };
+			heartbeat[2] = packetcount;
+			int res = checksum(currentControlState, 9);
+			uchar ck_a = (uchar)(res & 0xFF); ///< High byte
+			uchar ck_b = (uchar)(res >> 8); ///< Low byte
+			heartbeat[15] = ck_a;
+			heartbeat[16] = ck_b;
+			copterCom->Write((char*)heartbeat, 17);
+			QTest::qSleep(47);
+			continue;
+		}
+		currentControlState[2] = packetcount;
+		int res = checksum(currentControlState, 18);
+		uchar ck_a = (uchar)(res & 0xFF); ///< High byte
+		uchar ck_b = (uchar)(res >> 8); ///< Low byte
+		currentControlState[24] = ck_a;
+		currentControlState[25] = ck_b;
+		copterCom->Write((char*)currentControlState, 26);
 		Command comm = *combuffer->Dequeue().value;
+		EvaluateCommand(comm);
+		QTest::qSleep(63);
+		/*
 		 char *a = ConvertCommandToMavlink(comm);
-		 copterCom->Write(a, 24);
-
+		 copterCom->Write(a, 26);
+		 */
 	}
 }
 
-char* ArduCopterController::ConvertCommandToMavlink(Command comm)
+void ArduCopterController::EvaluateCommand(Command comm)
 {
-	CommandType ctype = Stay;// comm.getComType();
-	CommandCondition ccondition = NearObject;// comm.getComCondition();
+	CommandType ctype = (CommandType)comm.getComType();
+	CommandCondition ccondition = (CommandCondition)comm.getComCondition();
 	switch (ctype)
 	{
 	case Stay:
 		break;
-
+	case MoveForward:
+		break;
+	case StartArm:
+		currentControlState = a;
+		break;
+	case StopArm:
+		currentControlState = f;
+	case Disarm:
+		break;
 	}
 	switch (ccondition)
 	{
 	case NearObject:
 		break;
 	}
-	char  *res = new char[24];
-	return res;
+
 }
 void ArduCopterController::Start(void)
 {
-	if (!config->getIsAvailable())
+	if (config->getIsAvailable())
 	{
 		if (config->getDoFakeStart())
 		{
@@ -471,21 +521,22 @@ void ArduCopterController::Start(void)
 #endif
 			FakeStart();
 	}
-		else
-		{
-#ifdef ENABLE_LOGGING
-			RAW_LOG(INFO, "ArduCopterController: not available. Exit");
-#endif
-			exit(1);
+		NormalStart();
 }
-		return;
+	else
+	{
+#ifdef ENABLE_LOGGING
+		RAW_LOG(INFO, "ArduCopterController: not available. Exit");
+#endif
+		exit(1);
 	}
-
-
+	return;
 }
 
 void ArduCopterController::FakeStart(void)
 {
+
+
 	int i = 0;
 	while (true){
 		QSharedPointer <ArduCopterReceived> CopterReceived(new ArduCopterReceived());

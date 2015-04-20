@@ -13,13 +13,18 @@
 enum CommandType{
 	MoveForward,
 	Rotate,
-	Stay
+	Stay,
+	StartArm,
+	StopArm,
+	Disarm
 };
+
 
 enum CommandCondition{
 	PassedTime,
 	PassedDistance,
-	NearObject
+	NearObject,
+	Now
 };
 
 class Command// : public SenderBase

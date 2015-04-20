@@ -45,7 +45,7 @@ Config* configFactory::DetermineConfigObject(QJsonObject treeOfObject)
     ArducopterConfig *config= new ArducopterConfig();
 		config->Port = string(treeOfObject.value("Port").toString().toUtf8().constData());
     config->IsAvailable = treeOfObject.value("IsAvailable").toInt();
-    config->DoFakeStart = treeOfObject.value("DoFakeStart").toInt();
+		config->DoFakeStart = 0;
     return config;
   }
   if (type == "Camera"){
