@@ -1,18 +1,19 @@
 #pragma once
 #include <Command.h>
 
-Command::Command()
+Command::Command(QObject* parent)
+: SenderBase(parent)
+, m_CommandType(CommandType::Stay)
+, m_CommandCondition(CommandCondition::PassedDistance)
+, m_Value(0)
 {
-  ComType = 0;
-  ComCondition = 0;
-  Value = 0;
-  Time = time(NULL);
+	//  Time = time(NULL);
 }
 
-Command::Command (CommandType CType, CommandCondition CCondition, float ConditionValue)
+Command::Command(CommandType commandType, CommandCondition commandCondition, float value)
 {
-  ComType = CType;
-  ComCondition = CCondition;
-  Value = ConditionValue;
-  Time = time(NULL);
+	m_CommandType = commandType;
+	m_CommandCondition = commandCondition;
+	m_Value = value;
+	//  Time = time(NULL);
 }

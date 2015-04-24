@@ -29,8 +29,6 @@ CameraController::~CameraController(void)
 
 void CameraController::Start(void)
 {
-  
-  CameraReceived *DataToStorage;
   CvCapture *Capture;//= cvCreateCameraCapture(cameraNum);
 
   Capture=cvCreateCameraCapture(cameraNum);

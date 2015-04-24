@@ -28,6 +28,10 @@
     "SendSender": {
         "Port": "int",
         "IP": "string" 
+    },
+
+    "ClientReceiver": {
+        "CommandPort": "string"
     }
 	
 }

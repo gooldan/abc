@@ -1,55 +1,49 @@
 #pragma once
-/*
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
-#include <boost/serialization/nvp.hpp>
-*/
-
 #include <time.h>
 #include "SenderBase.h"
-
 #include <QObject>
 
-enum CommandType{
-	MoveForward,
-	Rotate,
-	Stay,
-	StartArm,
-	StopArm,
-	Disarm
-};
-
-
-enum CommandCondition{
-	PassedTime,
-	PassedDistance,
-	NearObject,
-	Now
-};
-
-class Command// : public SenderBase
+class Command : public SenderBase
 {
- //   Q_OBJECT
-public:
-	//Q_PROPERTY(int ComType READ getComType WRITE setComType)
-	//Q_PROPERTY(int ComCondition READ getComCondition WRITE setComCondition)
-	//Q_PROPERTY (float Value READ getValue WRITE setValue)
-	//Q_PROPERTY (time_t Time READ getTime WRITE setTime)
-	
-  Command (CommandType CType, CommandCondition CCondition, float ConditionValue);
-  Command ();
+	Q_OBJECT
 
-  int getComType() const {return ComType;}
-  void setComType(int newComType) {ComType=newComType;}
-  int getComCondition() const {return ComCondition;}
-  void setComCondition(int newComCondition) {ComCondition=newComCondition;}
-  float getValue() const {return Value;}
-  void setValue(float newValue) {Value=newValue;}
-  time_t getTime() const {return Time;}
-  void setTime(time_t newTime) {Time=newTime;};
+	Q_PROPERTY(CommandType commandType READ getCommandType WRITE setCommandType)
+	Q_PROPERTY(CommandCondition commandCondition READ getCommandCondition WRITE setCommandCondition)
+	Q_PROPERTY(float value READ getValue WRITE setValue)
+	Q_PROPERTY (time_t time READ getTime WRITE setTime)
+
+	Q_ENUMS(CommandType)
+	Q_ENUMS(CommandCondition)
+
+public:
+	enum CommandType{
+		MoveForward,
+		Rotate,
+		Stay
+	};
+
+	enum CommandCondition{
+		PassedTime,
+		PassedDistance,
+		NearObject
+	};
+
+	Command(QObject* parent = 0);
+	Command(CommandType commandType, CommandCondition commandCondition, float value);
+
+	void setCommandType(CommandType commandType)                { m_CommandType = commandType; }
+	void setCommandCondition(CommandCondition commandCondition) { m_CommandCondition = commandCondition; }
+	void setValue(float value)                                  { m_Value = value; }
+	void setTime(time_t time)                                   { m_Time = time; };
+
+	CommandType          getCommandType() const      { return m_CommandType; }
+	CommandCondition     getCommandCondition() const { return m_CommandCondition; }
+	float                getValue() const            { return m_Value; }
+	time_t               getTime() const             { return m_Time; }
+
 private:
-  int ComType;
-  int ComCondition;
-  float Value;
-  time_t Time;
+	CommandType      m_CommandType;
+	CommandCondition m_CommandCondition;
+	float m_Value;
+	time_t m_Time;
 };

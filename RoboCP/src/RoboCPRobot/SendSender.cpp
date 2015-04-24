@@ -1,11 +1,19 @@
 #include "SendSender.h"
 
 
-SendSender::SendSender (XMLConfig * x, SendBuffer * buf)
-{
-  port = atoi(x->SendPort.c_str() ); //reading port from config
-  buffer = buf;
+//SendSender::SendSender (XMLConfig * x, SendBuffer * buf)
+//{
+//  port = atoi(x->SendPort.c_str() ); //reading port from config
+//  buffer = buf;
+//}
+
+SendSender::SendSender (SendSenderConfig *x,SendBuffer *buf){
+	port = x->getPort(); //reading port from config
+	IP = x->getIP();
+ buffer = buf;
 }
+
+
 
 SendSender::~SendSender (void)
 {
@@ -15,15 +23,22 @@ void SendSender::Start ()
 {
   try {
  QTcpSocket *socket=new QTcpSocket();
- socket->connectToHost("127.0.0.1", 9000); // Что должно быть в скобочках?
-	    QSharedPointer<Send> sendData;
- sendData = buffer->Dequeue();
+ QHostAddress *address = new QHostAddress (QString::fromStdString(IP));
+ socket->connectToHost(*address,port);
+
+ while (socket->state()==QTcpSocket::ConnectedState){
+        QSharedPointer<Send> sendData;
+        sendData = buffer->Dequeue();
 		QByteArray block;
         QDataStream sendStream(&block, QIODevice::ReadWrite);
-        sendStream << quint16(0) << sendData;
+        sendStream<<sendData;
+		socket->write(block);
+
+		/*sendStream << quint16(0) << sendData;
         sendStream.device()->seek(0);
         sendStream << (quint16)(block.size() - sizeof(quint16));
- socket->write(block,block.size());
+ socket->write(block,block.size());*/
+ }
   }
   catch (exception& e) {
     cout << "SendSender: Exception: " << e.what () << endl; //TODO: write in log

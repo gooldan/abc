@@ -1,4 +1,11 @@
 #pragma once
+#include <QtCore/qthread.h>
+
+struct Sleeper : private QThread
+{
+	static void msleep(unsigned long msecs) { QThread::msleep(msecs); }
+};
+
 class Controller
 {
 public:

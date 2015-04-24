@@ -1,6 +1,6 @@
 #pragma once
 #include "KinectViewer.h"
-#include "QtTest\qtest.h"
+#include "controller.h"
 
 KinectViewer::KinectViewer (XMLConfig * x)
 {
@@ -59,7 +59,7 @@ void KinectViewer::Start ()
 	Mtx->lock();
 	viewer->spinOnce();
 	Mtx->unlock();
-	QTest::qSleep (50);
+	Sleeper::msleep (50);
   }
 
 }

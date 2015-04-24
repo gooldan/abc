@@ -30,12 +30,12 @@ void SendManager::updateText (QSharedPointer<Send> s)
 
   // Filling buf with sprintf, then updating text in KinectViewer 
   if (s->PacketType == AccelerationPacket){
-    sprintf (buf, "Acceleration x: %d", s->Acceleration.getx());
+    /*sprintf (buf, "Acceleration x: %d", s->Acceleration->x);
     kinectViewer->viewer->updateText (buf, 5, 290, 10, 1, 1, 1, "AccelerationX");
     sprintf (buf, "Acceleration y: %d", s->Acceleration.gety());
     kinectViewer->viewer->updateText (buf, 5, 278, 10, 1, 1, 1, "AccelerationY");
     sprintf (buf, "Acceleration z: %d", s->Acceleration.getz());
-    kinectViewer->viewer->updateText (buf, 5, 268, 10, 1, 1, 1, "AccelerationZ");
+    kinectViewer->viewer->updateText (buf, 5, 268, 10, 1, 1, 1, "AccelerationZ");*/
   }
   sprintf (buf, "Top sonic: %d", s->TopSonicSensor);
   kinectViewer->viewer->updateText (buf, 5, 248, 10, 1, 1, 1, "TopSonic");
@@ -64,16 +64,16 @@ void SendManager::updateText (QSharedPointer<Send> s)
     kinectViewer->viewer->updateText (buf, 5, 138, 10, 1, 1, 1, "Yaw");
   }
 
-  sprintf (buf, "Time: %s", ctime(&(s->Time)) );
+//  sprintf (buf, "Time: %s", ctime(&(s->Time)) );
   kinectViewer->viewer->updateText (buf, 5, 122, 10, 1, 1, 1, "SendTime");
 
-  sprintf (buf, "Motion x1: %f", s->Motion.getBeginningX());
+  /*sprintf (buf, "Motion x1: %f", s->Motion.getBeginningX());
   kinectViewer->viewer->updateText (buf, 5, 112, 10, 1, 1, 1, "BeginningX");
   sprintf (buf, "Motion y1: %f", s->Motion.getBeginningY());
   kinectViewer->viewer->updateText (buf, 5, 102, 10, 1, 1, 1, "BeginningY");
   sprintf (buf, "Motion x2: %f", s->Motion.getEndX());
   kinectViewer->viewer->updateText (buf, 5, 92, 10, 1, 1, 1, "EndX");
   sprintf (buf, "Motion y2: %f", s->Motion.getEndY());
-  kinectViewer->viewer->updateText (buf, 5, 82, 10, 1, 1, 1, "EndY");
+  kinectViewer->viewer->updateText (buf, 5, 82, 10, 1, 1, 1, "EndY");*/
     
 }

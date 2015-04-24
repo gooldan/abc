@@ -13,6 +13,7 @@
 
 #include <boost/interprocess/sync/interprocess_mutex.hpp>
 #include <boost/asio.hpp>
+#include <QSharedPointer>
 
 using namespace pcl;
 

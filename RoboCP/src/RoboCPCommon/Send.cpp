@@ -1,11 +1,5 @@
 #include "Send.h"
 
-
-Send::Send(void)
-{
-}
-
-
-Send::~Send(void)
+Send::Send(QObject* parent) : SenderBase(parent)
 {
 }

@@ -15,5 +15,7 @@
 
   "Camera" : { "Type" : "Camera", "Number" : 1, "FramesPerSecond" : 180, "FrameWidth" : 32, "FrameHeight" : 240 },
 
-  "SendSender" : {"IP": "127.0.0.1","Port": 6583} 
+  "SendSender" : {"IP": "127.0.0.1","Port": 6583} ,
+
+  "ClientReceiver" :  { "CommandPort" : "6667"}
 }

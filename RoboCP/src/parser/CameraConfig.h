@@ -1,7 +1,8 @@
 #pragma once
 #include "Config.h"
 #include "configFactory.h"
-class CameraConfig : public Config{
+class CameraConfig : public Config
+{
 public:
   CameraConfig();
   friend class configFactory;

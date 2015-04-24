@@ -8,6 +8,7 @@ using namespace pcl;
 class KinectData
 {
 public:
+
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW  // Dont know if actually need it
   PointCloud<PointXYZ>::Ptr Cloud; // Boost shared_ptr to point cloud
   time_t Time; // Time

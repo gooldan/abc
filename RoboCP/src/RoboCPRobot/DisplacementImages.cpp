@@ -1,9 +1,8 @@
 #include "DisplacementImages.h"
 
-
 DisplacementImages::DisplacementImages(void)
 {
-	Vectors = new Vector[MAX_COUNT+1];
+	Vectors = new DisplacementVector[MAX_COUNT + 1];
 }
 
 double DisplacementImages::Dist(CvPoint2D32f Point1, CvPoint2D32f Point2)
@@ -13,17 +12,16 @@ double DisplacementImages::Dist(CvPoint2D32f Point1, CvPoint2D32f Point2)
 
 void DisplacementImages::CountMotion()
 {
-	Vector Min;
-	Min.setLength(-1);
-	for(int i=0; i< NumVectors; i++){
-		if(Min.getLength() > Vectors[i].getLength() || Min.getLength() == -1)
+	DisplacementVector Min;
+	Min.Length = -1;
+	for (int i = 0; i< NumVectors; i++){
+		if (Min.Length > Vectors[i].Length || Min.Length == -1)
 		{
 			Min = Vectors[i];
 		}
 	}
 	Motion = Min;
 }
-
 
 DisplacementImages::~DisplacementImages(void)
 {

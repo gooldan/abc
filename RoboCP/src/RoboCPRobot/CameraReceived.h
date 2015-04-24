@@ -8,7 +8,7 @@ class CameraReceived :
 {
 public:
   IplImage *Frame;
-  Vector Motion;
+  DisplacementVector Motion;
   time_t Time;
   CameraReceived(IplImage *ImageToSave);
   CameraReceived();

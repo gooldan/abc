@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "QtCore\qsharedpointer.h"
-//#include "mavlinkSender.cpp"
+
 
 using namespace cv;
 
@@ -103,7 +103,8 @@ int main(char *args[], int count)
   {
       config1.Parse();
   }
-	
+
+
   XMLConfig config;
   { // Loading config from "config.xml" 
     std::ifstream ifs("config.xml");
@@ -124,21 +125,21 @@ int main(char *args[], int count)
 
   NanoReceivedBuffer NanoBuffer(1000);
   NanoController  NanoControl(&config, &NanoBuffer);
-	CommandBuffer ComBuffer(100);
-	CommandProcessing ComProc(&config, &ComBuffer);
+
   ArduCopterBuffer CopterBuffer(1000);
-	
   ArduCopterController CopterControl = ArduCopterController();
-  CopterControl.Configure(config1.ConfigByName("Arducopter"), &CopterBuffer,&ComBuffer);
+  CopterControl.Configure(config1.ConfigByName("Arducopter"), &CopterBuffer);
 
   CameraReceivedBuffer CameraBuffer(1000);
   CameraController CameraControl(&config, &CameraBuffer);
   
   //CameraMock CamMockControl(&config, &CameraBuffer);
 
+  CommandBuffer ComBuffer(100);
+  CommandProcessing ComProc(&config, &ComBuffer);
 
   SendBuffer sendBuffer (50);
-  SendSender sendSender (&config, &sendBuffer);
+//  SendSender sendSender (&config, &sendBuffer);
 
   SendProcessing sendProcessing(&NanoBuffer, &CopterBuffer, &CameraBuffer, &sendBuffer);
   
@@ -165,7 +166,7 @@ int main(char *args[], int count)
   
   tgroup.create_thread ( boost::bind (&SendProcessing::Start, &sendProcessing) );
   
-  tgroup.create_thread ( boost::bind (&SendSender::Start, &sendSender) );  
+  //tgroup.create_thread ( boost::bind (&SendSender::Start, &sendSender) );  
   
   
   #ifdef GPS_TEST

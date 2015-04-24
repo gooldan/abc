@@ -18,7 +18,7 @@ public:
   float Yaw;
   float AltitudeSonic;
   float AltitudeBarometer;
-  struct Point3d Acceleration;
+  struct RoboPoint3d Acceleration;
   int PacketType;
   time_t Time;
   ArduCopterReceived(void);

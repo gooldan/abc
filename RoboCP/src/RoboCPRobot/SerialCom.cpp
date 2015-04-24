@@ -1,5 +1,4 @@
 #include "SerialCom.h"
-#include "QtTest\qtest.h"
 
 
 //temporarily constructor isn't empty.

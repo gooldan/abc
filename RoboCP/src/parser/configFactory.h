@@ -14,6 +14,7 @@
 #include "ArducopterConfig.h"
 #include "CameraConfig.h"
 #include "SendSenderConfig.h"
+#include "ClientReceiverConfig.h"
 
 //Main class of processing config
 class configFactory{

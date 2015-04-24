@@ -1,5 +1,4 @@
 #include "SendProcessing.h"
-#include "QtTest\qtest.h"
 
 SendProcessing::SendProcessing(NanoReceivedBuffer *nano, ArduCopterBuffer *ardu, CameraReceivedBuffer *camera, SendBuffer *send)
 {
@@ -17,13 +16,13 @@ void SendProcessing::Start()
   
     while (true){
 	  QSharedPointer <Send> sendData(new Send);
-	  sendData->Time = time(NULL);
+//	  sendData->Time = time(NULL);
 	  
 	  if (arduBuffer->Used->try_wait()){
 		arduBuffer->Used->post();
         arduData = arduBuffer->Dequeue();
 	  }
-        sendData->Acceleration = arduData->Acceleration;
+        //sendData->Acceleration = arduData->Acceleration;
 		sendData->Roll = arduData->Roll;
 		sendData->Pitch = arduData->Pitch;
 		sendData->Yaw = arduData->Yaw;
@@ -45,10 +44,10 @@ void SendProcessing::Start()
 		  cameraBuffer->Used->post();
 		  cameraData = cameraBuffer->Dequeue();
 		}
-		sendData->Motion = cameraData->Motion;
+//		sendData->Motion = cameraData->Motion;
 
       sendBuffer->Enqueue (sendData);
-      QTest::qSleep (50); 
+	  Sleeper::msleep (50);
   }
 }
 

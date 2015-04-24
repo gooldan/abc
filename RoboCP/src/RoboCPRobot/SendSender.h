@@ -19,15 +19,16 @@ using boost::asio::ip::tcp;
 using namespace std;
 
 //Class purpose: taking Send object from buffer and sending it via TCP-IP
-class SendSender :
-  public SenderBase
+class SendSender // :  public SenderBase
 {
 public:
   void Start(); 
-  SendSender(XMLConfig * x, SendBuffer * buf);
+  //SendSender(XMLConfig * x, SendBuffer * buf);
+  SendSender (SendSenderConfig *x,SendBuffer *buf);
   ~SendSender(void);
 private:
   SendBuffer * buffer;
   int port;
+  string IP;
 };
 

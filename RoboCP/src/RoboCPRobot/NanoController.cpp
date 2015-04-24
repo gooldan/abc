@@ -1,5 +1,4 @@
 #include "NanoController.h"
-#include "QtTest\qtest.h"
 #include "QtCore\qsharedpointer.h"
 
 NanoReceivedBuffer *NanoController::GetBuffer(void)
@@ -56,7 +55,7 @@ void NanoController::Start(void)
   int DataLength;
   unsigned int Counter = 0;
   while (true){
-    QTest::qSleep(1);
+    Sleeper::msleep(1);
     Counter++;
     if ((readyToNewMessage == false)&&(Counter > 100)){
       DataLength = 0;
@@ -153,7 +152,9 @@ void NanoController::Start(void)
         #ifdef ENABLE_LOGGING
         RAW_LOG(INFO, "NanoController: reconnecting...");
         #endif
-        nanoCom = new SerialCom(nanoPort, NANO_BAUD_RATE);
+        char *cstr = new char[nanoPort.length() + 1];
+				strcpy(cstr, nanoPort.toUtf8().data());
+        nanoCom = new SerialCom(cstr, NANO_BAUD_RATE);
         lastReadTime = time(NULL);
         stage = -4;
       }
@@ -173,6 +174,6 @@ void NanoController::FakeStart(void){
     NanoData->Time = time(NULL);
     buffer->Enqueue(NanoData);
     i = (i + 1)%5;
-    QTest::qSleep(103);
+    Sleeper::msleep(103);
   }
 }

@@ -7,8 +7,8 @@
 
 CommandMaker::CommandMaker (XMLConfig * x)
 {
-  ip = x->IP; // Reading IP from config
-  port = x->CommandPort; // Readin port from config
+	ip = QString(x->IP.c_str()); // Reading IP from config
+	port = QString(x->CommandPort.c_str()); // Readin port from config
 }
 
 CommandMaker::~CommandMaker ()
@@ -18,7 +18,7 @@ CommandMaker::~CommandMaker ()
 void CommandMaker::Start ()
 {
   try {
-    tcp::iostream socketStream (ip.toStdString().c_str(), port.toStdString().c_str() ); // Trying to connect
+		tcp::iostream socketStream(ip.toUtf8().data(), port.toUtf8().data()); // Trying to connect
 
 	if (!socketStream.fail() ) {
       cout << "CommandMaker: Connected!" << endl; // TODO: write in log
@@ -34,16 +34,21 @@ void CommandMaker::Start ()
 	  while (!socketStream.fail() ) {
 		// Reading command
 		cout << "input command type (int):" << endl;
-		cin >> com.ComType;
+		int input = 0;
+		cin >> input;
+		com.setCommandType(Command::CommandType(input));
 		cout << "input command condition (int):" << endl;
-        cin >> com.ComCondition;
+		cin >> input;
+        com.setCommandCondition(Command::CommandCondition(input));
 		cout << "input condition value (float):" << endl;
-        cin >> com.Value;
+		float inFloat;
+		cin >> inFloat;
+		com.setValue(inFloat);
 
 		QByteArray block;
         QDataStream sendStream(&block, QIODevice::ReadWrite);
  
-        sendStream << quint16(0) << com;
+//        sendStream << quint16(0) << com;
         sendStream.device()->seek(0);
         sendStream << (quint16)(block.size() - sizeof(quint16));
 		socketStream.write(block,block.size());

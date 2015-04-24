@@ -1,11 +1,11 @@
 #pragma once
 #include "KinectReceiver.h"
-#include "QtTest\qtest.h"
+#include "controller.h"
 
 KinectReceiver::KinectReceiver (XMLConfig * x, KinectBuffer* b)
 {
-  ip = x->IP; // Reading IP from config
-  port = x->KinectPort; // Reading port from config
+  ip = QString(x->IP.c_str()); // Reading IP from config
+  port = QString(x->KinectPort.c_str()); // Reading port from config
   kinectBuffer = b;
 
   // We will receive encoded point clouds, so we need to decode them
@@ -22,14 +22,14 @@ KinectReceiver::~KinectReceiver ()
 void KinectReceiver::Start ()
 {
   try {
-    tcp::iostream socketStream (ip.toStdString().c_str(), port.toStdString().c_str() ); // Trying to connect
+		tcp::iostream socketStream(ip.toUtf8().data(), port.toUtf8().data()); // Trying to connect
 
     if (!socketStream.fail() ) {
       cout << "KinectReceiver: Connected!" << endl; // TODO: write in log
       #ifdef ENABLE_LOGGING
 	    RAW_LOG (INFO,  "KinectReceiver: Connected!");
       #endif
-	    QTest::qSleep (5000);
+		Sleeper::msleep (5000);
 
 	    while (true ) {
 		    QSharedPointer<KinectData> kData (new KinectData); // Creating new KinectData

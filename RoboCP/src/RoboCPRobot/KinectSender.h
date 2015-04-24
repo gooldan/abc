@@ -22,8 +22,7 @@ using namespace pcl::octree;
 using namespace std;
 
 //Class purpose: taking KinectData object from buffer and sending it via TCP-IP
-class KinectSender :
-  public SenderBase
+class KinectSender 
 {
 public:
   void Start();
